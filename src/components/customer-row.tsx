@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Pressable, StyleSheet, Text } from "react-native";
 
 export interface CustomerRowProps {
@@ -7,22 +6,20 @@ export interface CustomerRowProps {
   balance: number;
   lastPaid: string;
   defaultExpanded?: boolean;
+  onPress: () => void;
 }
 
-export function CustomerRow({ name, balance, lastPaid, defaultExpanded = false }: CustomerRowProps) {
-  const [expanded, setExpanded] = useState(defaultExpanded);
+export function CustomerRow({
+  name,
+  balance,
+  lastPaid,
+  defaultExpanded = false,
+  onPress,
+}: CustomerRowProps) {
   return (
-    <Pressable
-      onPress={() => setExpanded(!expanded)}
-      style={styles.row}
-    >
+    <Pressable onPress={onPress} style={styles.row}>
       <Text style={styles.name}>{name}</Text>
       <Text style={styles.balance}>₱ {balance.toFixed(2)}</Text>
-      {expanded && lastPaid !== "Never" && (
-        <Text style={styles.lastPaid}>
-          Last paid: {lastPaid}
-        </Text>
-      )}
     </Pressable>
   );
 }
